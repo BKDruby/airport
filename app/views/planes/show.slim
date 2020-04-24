@@ -1,0 +1,16 @@
+= link_to 'Home', root_path
+h1= @plane.title
+h4= 'Status: ' + @plane.status.upcase.gsub('_', ' ')
+h2 History of changes
+table.table
+  thead
+    tr
+      th Changed at
+      th Prev status
+      th New status
+  tbody
+    - @plane.histories.each do |history|
+      tr
+        td= history.created_at
+        td= Plane.statuses.detect { |k, v| v == history.prev_status }.first.upcase.gsub('_', ' ')
+        td= Plane.statuses.detect { |k, v| v == history.new_status }.first.upcase.gsub('_', ' ')
